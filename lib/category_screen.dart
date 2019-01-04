@@ -5,8 +5,15 @@ import 'package:unit_converter/unit.dart';
 final _backgroundColor = Colors.green[100];
 
 ///Home screen for Unit Converter app. Shows a header and list of [Category]
-class CategoryScreen extends StatelessWidget {
+class CategoryScreen extends StatefulWidget {
   const CategoryScreen();
+
+  @override
+  State<StatefulWidget> createState() => _CategoryScreenState();
+}
+
+class _CategoryScreenState extends State<CategoryScreen> {
+  final _categories = <Category>[];
 
   static const _categoryNames = <String>[
     'Length',
@@ -41,12 +48,12 @@ class CategoryScreen extends StatelessWidget {
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final categories = <Category>[];
 
+  @override
+  void initState() {
+    super.initState();
     for (var i = 0; i < _categoryNames.length; i++) {
-      categories.add(
+      _categories.add(
         Category(
             name: _categoryNames[i],
             color: _baseColors[i],
@@ -54,6 +61,10 @@ class CategoryScreen extends StatelessWidget {
             units: _retrieveUnitList(_categoryNames[i])),
       );
     }
+  }
+
+  @override
+  Widget build(BuildContext context) {
 
     final appBar = AppBar(
       elevation: 0,
@@ -71,7 +82,7 @@ class CategoryScreen extends StatelessWidget {
     final listView = Container(
         color: _backgroundColor,
         child: ListView(
-          children: categories,
+          children: _categories,
         ));
 
     return Scaffold(
