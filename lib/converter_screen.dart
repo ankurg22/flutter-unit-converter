@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:unit_converter/unit.dart';
 
-class ConverterScreen extends StatelessWidget {
+class ConverterScreen extends StatefulWidget {
   final List<Unit> units;
   final String name;
   final ColorSwatch color;
 
-  // TODO: Pass in the [Category]'s name and color
   const ConverterScreen({
     @required this.units,
     @required this.name,
@@ -16,10 +15,15 @@ class ConverterScreen extends StatelessWidget {
         assert(color != null);
 
   @override
+  State<StatefulWidget> createState() => _ConverterScreenState();
+}
+
+class _ConverterScreenState extends State<ConverterScreen> {
+  @override
   Widget build(BuildContext context) {
-    final unitWidgets = units.map((Unit unit) {
+    final unitWidgets = widget.units.map((Unit unit) {
       return Container(
-        color: color,
+        color: widget.color,
         margin: EdgeInsets.all(8.0),
         padding: EdgeInsets.all(16.0),
         child: Column(
